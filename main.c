@@ -106,6 +106,28 @@ void depositMoney(Account_Data_t *account_data, uint32_t *acc_count) {
 
 void withdrawMoney(Account_Data_t *account_data, uint32_t *acc_count) {
 
+    uint32_t acc_number= 0;
+    printf("Please Enter Account Number: ");
+    scanf("%d",&acc_number);
+
+    for(uint32_t i = 0; i< *acc_count; i++) {
+
+        if (account_data[i].account_number == acc_number) {
+            float withdraw_amount = 0;
+
+            printf("Enter Amount: ");
+            scanf("%f",withdraw_amount);
+            account_data[i].balance-=withdraw_amount;
+            printf("\n");
+            printf("Successfully withdraw Money\n");
+            return;
+
+
+        }
+
+    }
+
+    printf("Account Number doesn't Exited!\n");
 
 
 }
