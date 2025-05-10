@@ -20,27 +20,32 @@ void displayMessages();
 
 int main(void) {
 
-    uint32_t user_choise = 0;
-    displayMessages();
-    scanf("%d",&user_choise);
 
-    switch (user_choise) {
+    while (1) {
 
-        case 1:
-            showAllAccount(account_data,&acc_count);
-        break;
-        case 2:
-            createNewAccount(account_data,&acc_count);
-        break;
-        case 3:
-            depositMoney(account_data,&acc_count);
-        break;
-        case 4:
-            withdrawMoney(account_data,&acc_count);
-        default:
-            printf("Invalid User Input");
+        displayMessages();
+        uint32_t user_choise = 0;
+        scanf("%d",&user_choise);
+
+        switch (user_choise) {
+
+            case 1:
+                createNewAccount(account_data,&acc_count);
+                break;
+            case 2:
+                showAllAccount(account_data,&acc_count);
+                break;
+            case 3:
+                withdrawMoney(account_data,&acc_count);
+                break;
+            case 4:
+                depositMoney(account_data,&acc_count);
+                break;
+            default:
+                printf("Invalid User Input\n");
+        }
     }
-    return 0;
+
 }
 
 
@@ -66,8 +71,10 @@ void createNewAccount(Account_Data_t *account_data, uint32_t *acc_count) {
             printf("Please Enter Account Holder Name: ");
             scanf("%50[^\n]",&account_data[*acc_count].name);
             printf("Enter Account Balance: ");
-            scanf("%0.2f",account_data[*acc_count].balance);
-            printf("Account Added Successfully.. \n");
+            scanf("%f",&account_data[*acc_count].balance);
+           printf("Account Added Successfully.. \n");
+            (*acc_count)++;
+
 
 
 
@@ -86,7 +93,7 @@ void depositMoney(Account_Data_t *account_data, uint32_t *acc_count) {
             float deposite_amount = 0;
 
             printf("Enter Amount: ");
-            scanf("%f",deposite_amount);
+            scanf("%f",&deposite_amount);
             account_data[i].balance+=deposite_amount;
             printf("\n");
             printf("Successfully Deposit Money\n");
@@ -115,12 +122,12 @@ void withdrawMoney(Account_Data_t *account_data, uint32_t *acc_count) {
         if (account_data[i].account_number == acc_number) {
             float withdraw_amount = 0;
 
-            printf("Enter Amount: ");
-            scanf("%f",withdraw_amount);
-            account_data[i].balance-=withdraw_amount;
+            printf("Enter Withdraw Amount: ");
+            scanf("%f",&withdraw_amount);
+            account_data[i].balance -= withdraw_amount;
             printf("\n");
             printf("Successfully withdraw Money\n");
-            return;
+           return;
 
 
         }
@@ -136,9 +143,10 @@ void showAllAccount(Account_Data_t *account_data, uint32_t *acc_count) {
 
     for(uint32_t i = 0; i< *acc_count; i++) {
 
-        printf("Account Holder Name %s\n",account_data[i].name);
-        printf("Account Number %d\n",account_data[i].account_number);
-        printf("Account Balance %f\n",account_data[i].balance);
+        printf("Account Holder Name: %s\n",account_data[i].name);
+        printf("Account Number: %d\n",account_data[i].account_number);
+        printf("Account Balance: Rs. %0.3f\n",account_data[i].balance);
+        printf("\n");
 
     }
 
@@ -146,7 +154,7 @@ void showAllAccount(Account_Data_t *account_data, uint32_t *acc_count) {
 
 void displayMessages() {
 
-
+    printf("\n");
     printf("Add a new Account press                    (1)\n");
     printf("Display all Accounts press                 (2)\n");
     printf("Enter withdraw Money press                 (3)\n");
